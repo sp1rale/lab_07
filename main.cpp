@@ -99,7 +99,7 @@ int main() {
             break;
 
         default:
-           cout << "Invalid choice. Try again.\n";
+            std:: cout << "Invalid choice. Try again.\n";
         }
 
     } while (choice != 0);
