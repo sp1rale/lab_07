@@ -4,102 +4,103 @@
 
 using namespace std;
 
-class Worker {
+class Book {
 private:
-   string fullName;
-   string position;
-    int startYear;
-    double salary;
+    string author;
+    string title;
+    string publisher;
+    int year;
+    int pageCount;
 
 public:
-    explicit Worker(const std::string& name, const std::string& pos, int year, double sal)
-        : fullName(name), position(pos), startYear(year), salary(sal) {}
+    explicit Book(const std::string& a, const std::string& t, const std::string& p, int y, int pc)
+        : author(a), title(t), publisher(p), year(y), pageCount(pc) {}
 
     void displayInfo() const {
-        cout << "Full Name: " << fullName << "\n";
-        cout << "Position: " << position << "\n";
-        cout << "Start Year: " << startYear << "\n";
-        cout << "Salary: " << salary << "\n";
+        cout << "Author: " << author << "\n";
+        cout << "Title: " << title << "\n";
+        cout << "Publisher: " << publisher << "\n";
+        cout << "Year: " << year << "\n";
+        cout << "Page Count: " << pageCount << "\n";
     }
 
-    int getExperience(int currentYear) const {
-        return currentYear - startYear;
+    int getYear() const {
+        return year;
     }
 
-    double getSalary() const {
-        return salary;
+    string getAuthor() const {
+        return author;
     }
 
-    string getPosition() const {
-        return position;
+    string getPublisher() const {
+        return publisher;
     }
 };
 
 int main() {
-     vector<Worker> workers = {
-        Worker("John Doe", "Manager", 2010, 50000),
-        Worker("Jane Smith", "Developer", 2015, 60000),
-        Worker("Alice Johnson", "Accountant", 2012, 55000),
-        Worker("Bob Brown", "Manager", 2018, 70000)
+    vector<Book> books = {
+        Book("Author1", "Title1", "Publisher1", 2000, 300),
+        Book("Author2", "Title2", "Publisher2", 2010, 250),
+        Book("Author1", "Title3", "Publisher1", 2015, 400),
+        Book("Author3", "Title4", "Publisher3", 2020, 350)
     };
 
     int choice;
-    string searchParam;
-    int yearsExperience;
-    double salaryLimit;
+   string searchParam;
 
     do {
-        cout << "Menu:\n"
-            << "1. Search by Experience\n"
-            << "2. Search by Salary\n"
-            << "3. Search by Position\n"
+       cout << "Menu:\n"
+            << "1. Search by Author\n"
+            << "2. Search by Publisher\n"
+            << "3. Search by Year\n"
             << "0. Exit\n"
             << "Enter your choice: ";
         cin >> choice;
 
         switch (choice) {
         case 1:
-            cout << "Enter minimum years of experience: ";
-            cin >> yearsExperience;
-            cout << "\nWorkers with more than " << yearsExperience << " years of experience:\n";
-            for (const auto& worker : workers) {
-                if (worker.getExperience(2023) > yearsExperience) {
-                    worker.displayInfo();
+            cout << "Enter author to search: ";
+           cin >> searchParam;
+            cout << "\nBooks by author " << searchParam << ":\n";
+            for (const auto& book : books) {
+                if (book.getAuthor() == searchParam) {
+                    book.displayInfo();
                     cout << "---------------\n";
                 }
             }
             break;
 
         case 2:
-            cout << "Enter minimum salary: ";
-            cin >> salaryLimit;
-            cout << "\nWorkers with salary exceeding " << salaryLimit << ":\n";
-            for (const auto& worker : workers) {
-                if (worker.getSalary() > salaryLimit) {
-                    worker.displayInfo();
+           cout << "Enter publisher to search: ";
+           cin >> searchParam;
+           cout << "\nBooks by publisher " << searchParam << ":\n";
+            for (const auto& book : books) {
+                if (book.getPublisher() == searchParam) {
+                    book.displayInfo();
                     cout << "---------------\n";
                 }
             }
             break;
 
         case 3:
-           cout << "Enter position to search: ";
-           cin >> searchParam;
-           cout << "\nWorkers with position " << searchParam << ":\n";
-            for (const auto& worker : workers) {
-                if (worker.getPosition() == searchParam) {
-                    worker.displayInfo();
+            int yearToSearch;
+            cout << "Enter year to search: ";
+            cin >> yearToSearch;
+            cout << "\nBooks published after " << yearToSearch << ":\n";
+            for (const auto& book : books) {
+                if (book.getYear() > yearToSearch) {
+                    book.displayInfo();
                     cout << "---------------\n";
                 }
             }
             break;
 
         case 0:
-           cout << "Exiting program.\n";
+            cout << "Exiting program.\n";
             break;
 
         default:
-            std:: cout << "Invalid choice. Try again.\n";
+            cout << "Invalid choice. Try again.\n";
         }
 
     } while (choice != 0);
